@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"io/ioutil"
 	"os"
 
 	"github.com/jempe/code_generator/generator"
@@ -23,10 +24,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	if *output == "" {
-		fmt.Println("Output file is required")
-		os.Exit(1)
-	} else if utils.FileExists(*output) && !*overwrite {
+	if *output != "" && utils.FileExists(*output) && !*overwrite {
 		fmt.Println("Output file", *output, "already exists, if you want to overwrite it use the -overwrite argument")
 		os.Exit(1)
 	}
@@ -60,7 +58,17 @@ func main() {
 
 	outputCode := dbData.ProcessTemplates(*selectedStruct, templateFiles...)
 
-	fmt.Println(outputCode)
+	if *output == "" {
+		fmt.Println(outputCode)
+	} else {
+		err = ioutil.WriteFile(*output, []byte(outputCode), 0644)
+		if err != nil {
+			fmt.Println(err)
+			os.Exit(1)
+		} else {
+			fmt.Println("code generated at ", *output)
+		}
+	}
 }
 
 func panicError(err error) {

@@ -17,12 +17,14 @@ type GoData struct {
 	ParameterKeyName string
 	StructVar        string
 	DbFields         []SQLField
+	OpenBraces       string
+	CloseBraces      string
 }
 
 func (dbData *DBData) ProcessTemplates(structName string, templateFiles ...string) string {
 	goTemplate := template.Must(template.ParseFiles(templateFiles...))
 
-	var goStructData GoData
+	goStructData := GoData{OpenBraces: "{{", CloseBraces: "}}"}
 
 	for _, structData := range dbData.StructsData {
 		if structData.Name == structName {
