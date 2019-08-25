@@ -59,6 +59,16 @@ func (dbData *DBData) dbTable(structName string) string {
 	}
 }
 
+// dbTableItem returns the name of the table item of a struct
+func (dbData *DBData) dbTableItem(structName string) string {
+	structData := dbData.getStructData(structName)
+	if structData.Item != "" {
+		return structData.Item
+	} else {
+		return "undefined_item"
+	}
+}
+
 // dbField returns the name of the DB table field
 func dbField(field Field) string {
 	if field.FieldName != "" {

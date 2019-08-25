@@ -9,6 +9,7 @@ type DBData struct {
 type StructData struct {
 	Name   string  `json:"name"`
 	Table  string  `json:"table"`
+	Item   string  `json:"item"`
 	Fields []Field `json:"fields"`
 }
 

@@ -10,6 +10,7 @@ type GoData struct {
 	StructName       string
 	StructPluralName string
 	TableName        string
+	TableItem        string
 	KeyType          string
 	KeyGoType        string
 	KeyDbName        string
@@ -33,6 +34,7 @@ func (dbData *DBData) ProcessTemplates(structName string, templateFiles ...strin
 
 			// common variables for many functions
 			goStructData.TableName = dbData.dbTable(structName)
+			goStructData.TableItem = dbData.dbTableItem(structName)
 			goStructData.KeyDbName = dbData.keyDbField(structName)
 			goStructData.KeyName = dbData.keyGoFieldName(structName)
 			goStructData.KeyType = dbData.keyFieldType(structName)
