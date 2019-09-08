@@ -13,16 +13,10 @@ import (
 var output = flag.String("output", "", "path of output file")
 var schema = flag.String("schema", "", "path of schema file")
 var selectedStruct = flag.String("struct", "", "name of selected struct")
-var dbType = flag.String("db", "", "type of db to generate code")
 var overwrite = flag.Bool("overwrite", false, "overwrite files")
 
 func main() {
 	flag.Parse()
-
-	if !(*dbType == "postgre" || *dbType == "boltdb") {
-		fmt.Println("The DB Type", *dbType, "is not supported, the available options are: postgre, boltdb")
-		os.Exit(1)
-	}
 
 	if *output != "" && utils.FileExists(*output) && !*overwrite {
 		fmt.Println("Output file", *output, "already exists, if you want to overwrite it use the -overwrite argument")

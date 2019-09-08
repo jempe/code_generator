@@ -12,12 +12,10 @@ type GoData struct {
 	TableName        string
 	TableItem        string
 	KeyType          string
-	KeyGoType        string
-	KeyDbName        string
 	KeyName          string
 	ParameterKeyName string
 	StructVar        string
-	DbFields         []SQLField
+	DbFields         []Field
 	OpenBraces       string
 	CloseBraces      string
 }
@@ -35,11 +33,8 @@ func (dbData *DBData) ProcessTemplates(structName string, templateFiles ...strin
 			// common variables for many functions
 			goStructData.TableName = dbData.dbTable(structName)
 			goStructData.TableItem = dbData.dbTableItem(structName)
-			goStructData.KeyDbName = dbData.keyDbField(structName)
 			goStructData.KeyName = dbData.keyGoFieldName(structName)
 			goStructData.KeyType = dbData.keyFieldType(structName)
-			goStructData.KeyGoType = dbData.keyGoFieldType(structName)
-			goStructData.ParameterKeyName = dbData.keyGoParameterFieldName(structName)
 			goStructData.StructVar = dbData.structVar(structName)
 			goStructData.DbFields = dbData.getDbFields(structName)
 
@@ -81,11 +76,6 @@ func (dbData *DBData) goFieldType(field Field) string {
 	}
 
 	return fieldType
-}
-
-//keyGoParameterFieldName returns the go var name of the key field for the function parameters
-func (dbData *DBData) keyGoParameterFieldName(structName string) string {
-	return strings.ToLower(structName) + dbData.keyGoFieldName(structName)
 }
 
 //keyGoField returns the go var name of primary key field
