@@ -13,7 +13,7 @@ type GoData struct {
 	TableItem        string
 	KeyType          string
 	KeyName          string
-	ParameterKeyName string
+	KeyFieldName     string
 	StructVar        string
 	DbFields         []Field
 	OpenBraces       string
@@ -33,7 +33,8 @@ func (dbData *DBData) ProcessTemplates(structName string, templateFiles ...strin
 			// common variables for many functions
 			goStructData.TableName = dbData.dbTable(structName)
 			goStructData.TableItem = dbData.dbTableItem(structName)
-			goStructData.KeyName = dbData.keyGoFieldName(structName)
+			goStructData.KeyName = dbData.keyName(structName)
+			goStructData.KeyFieldName = dbData.keyFieldName(structName)
 			goStructData.KeyType = dbData.keyFieldType(structName)
 			goStructData.StructVar = dbData.structVar(structName)
 			goStructData.DbFields = dbData.getDbFields(structName)
@@ -55,43 +56,8 @@ func camelCase(name string) string {
 	}
 }
 
-// goField returns the name of variable of a Field
-func goField(field Field) string {
-	return camelCase(field.Name)
-}
-
-// goFieldType returns the type of variable of a Field
-func (dbData *DBData) goFieldType(field Field) string {
-	fieldType := "string"
-
-	if field.Type == "timestamp" || field.Type == "timestamp_now" {
-		fieldType = "time.Time"
-
-	} else if field.Type == "latitude" || field.Type == "longitude" || field.Type == "price" || field.Type == "bigint" {
-		fieldType = "int"
-	} else if field.Type == "bool" {
-		fieldType = "bool"
-	} else if field.Type == "reference" {
-		fieldType = dbData.keyGoFieldType(field.Reference)
-	}
-
-	return fieldType
-}
-
-//keyGoField returns the go var name of primary key field
-func (dbData *DBData) keyGoField(structName string) string {
-	structData := dbData.getStructData(structName)
-	for _, field := range structData.Fields {
-		if field.Key {
-			return goField(field)
-		}
-	}
-
-	return "undefined_key_db_field_type"
-}
-
-//keyGoFieldName returns the go var name (uppercase) of primary key field
-func (dbData *DBData) keyGoFieldName(structName string) string {
+//keyName returns the name of primary key field
+func (dbData *DBData) keyName(structName string) string {
 	structData := dbData.getStructData(structName)
 	for _, field := range structData.Fields {
 		if field.Key {
@@ -99,15 +65,15 @@ func (dbData *DBData) keyGoFieldName(structName string) string {
 		}
 	}
 
-	return "undefined_key_db_field_type"
+	return "undefined_key_field"
 }
 
-//keyGoFieldType returns the go type of primary key field
-func (dbData *DBData) keyGoFieldType(structName string) string {
+//keyFieldName returns the db Field name of primary key field
+func (dbData *DBData) keyFieldName(structName string) string {
 	structData := dbData.getStructData(structName)
 	for _, field := range structData.Fields {
 		if field.Key {
-			return dbData.goFieldType(field)
+			return field.FieldName
 		}
 	}
 
@@ -130,23 +96,4 @@ func (dbData *DBData) keyFieldType(structName string) string {
 func (dbData *DBData) structVar(structName string) string {
 	return camelCase(structName)
 
-}
-
-func (dbData *DBData) hashField(field Field, structName string, returnFields string) string {
-	code := `	hashed` + field.Name + `, err := bcrypt.GenerateFromPassword([]byte(` + dbData.structVar(structName) + `.` + field.Name + `), 8)
-	if err != nil {
-		log.Println(validationErrorPrefix, err)
-		return` + returnFields + `
-	}
-	`
-
-	if dbData.DBType == "boltdb" {
-		code += dbData.structVar(structName) + "." + field.Name
-	} else {
-		code += goField(field)
-	}
-
-	code += `= string(hashed` + field.Name + `)` + "\n\n"
-
-	return code
 }
