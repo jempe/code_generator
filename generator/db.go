@@ -33,6 +33,12 @@ func (dbData *DBData) getDbFields(structName string) (fieldsList []Field) {
 			field.FieldName = strings.ToLower(field.Name)
 		}
 
+		if field.Type == "reference" {
+			field.ReferenceType = dbData.keyFieldType(field.Reference)
+		} else {
+			field.ReferenceType = ""
+		}
+
 		fieldsList = append(fieldsList, field)
 	}
 	return

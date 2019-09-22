@@ -2,6 +2,7 @@ package generator
 
 import (
 	"bytes"
+	"log"
 	"strings"
 	"text/template"
 )
@@ -43,7 +44,11 @@ func (dbData *DBData) ProcessTemplates(structName string, templateFiles ...strin
 	}
 
 	var tpl bytes.Buffer
-	goTemplate.Execute(&tpl, goStructData)
+	err := goTemplate.Execute(&tpl, goStructData)
+
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	return tpl.String()
 }
