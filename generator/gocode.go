@@ -38,7 +38,7 @@ func (dbData *DBData) ProcessTemplates(structName string, templateFiles ...strin
 			goStructData.KeyFieldName = dbData.keyFieldName(structName)
 			goStructData.KeyType = dbData.keyFieldType(structName)
 			goStructData.StructVar = dbData.structVar(structName)
-			goStructData.DbFields = dbData.getDbFields(structName)
+			goStructData.DbFields = dbData.GetDbFields(structName)
 
 		}
 	}

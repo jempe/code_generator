@@ -24,13 +24,17 @@ func (dbData *DBData) dbTableItem(structName string) string {
 	}
 }
 
-//getDbFields returns the list of db fields
-func (dbData *DBData) getDbFields(structName string) (fieldsList []Field) {
+//GetDbFields returns the list of db fields
+func (dbData *DBData) GetDbFields(structName string) (fieldsList []Field) {
 	structData := dbData.getStructData(structName)
 
 	for _, field := range structData.Fields {
 		if field.FieldName == "" {
 			field.FieldName = strings.ToLower(field.Name)
+		}
+
+		if field.ValidateFunction == "" {
+			field.ValidateFunction = "Valid" + field.Name + "Default"
 		}
 
 		if field.Type == "reference" {

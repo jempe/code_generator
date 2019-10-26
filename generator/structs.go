@@ -14,16 +14,17 @@ type StructData struct {
 }
 
 type Field struct {
-	Name          string `json:"name"`
-	FieldName     string `json:"field_name,omitempty"`
-	Key           bool   `json:"key,omitempty"`
-	Type          string `json:"type"`
-	Maxlength     int    `json:"maxlength,omitempty"`
-	Minlength     int    `json:"minlength,omitempty"`
-	DBExtras      string `json:"db_extras,omitempty"`
-	DBDefault     string `json:"db_default,omitempty"`
-	Reference     string `json:"reference,omitempty"`
-	ReferenceType string `json:"reference_type,omitempty"`
+	Name             string `json:"name"`
+	FieldName        string `json:"field_name,omitempty"`
+	Key              bool   `json:"key,omitempty"`
+	Type             string `json:"type"`
+	Maxlength        int    `json:"maxlength,omitempty"`
+	Minlength        int    `json:"minlength,omitempty"`
+	DBExtras         string `json:"db_extras,omitempty"`
+	DBDefault        string `json:"db_default,omitempty"`
+	Reference        string `json:"reference,omitempty"`
+	ReferenceType    string `json:"reference_type,omitempty"`
+	ValidateFunction string `json:"validate_function,omitempty"`
 }
 
 func (dbData *DBData) getStructData(structName string) StructData {
