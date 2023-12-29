@@ -3,7 +3,7 @@ package generator
 import (
 	"bytes"
 	"errors"
-	"html/template"
+	"text/template"
 )
 
 func (dbData *DBData) ProcessTemplates(table string, templateFiles ...string) (output string, err error) {

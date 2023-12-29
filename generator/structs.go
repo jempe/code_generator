@@ -16,6 +16,7 @@ type Table struct {
 	The_items_name string  `json:"items_name"`
 	TheitemName    string  `json:"itemName"`
 	TheitemsName   string  `json:"itemsName"`
+	HasEmbeddings  bool    `json:"has_embeddings"`
 	Key            Field   `json:"key"`
 	Fields         []Field `json:"fields"`
 }
