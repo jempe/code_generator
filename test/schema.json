@@ -1,0 +1,26 @@
+{
+	"version": 1,
+	"tables": [
+		{
+			"ItemName": "Item",
+			"item_name": "item",
+			"ItemsName": "Items",
+			"items_name": "items",
+			"itemName": "item",
+			"itemsName": "items",
+			"key" : {
+				"FieldName": "ID",
+				"field_name": "id",
+				"goType": "int64"
+			},
+			"fields": [
+				{
+					"FieldName": "Name",
+					"field_name": "name",
+					"reference": "Excerpt",
+					"type": "int"
+				}
+			]
+		}
+	]
+}

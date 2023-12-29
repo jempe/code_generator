@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"strings"
 
 	"github.com/jempe/code_generator/generator"
 	"github.com/jempe/code_generator/utils"
@@ -12,11 +13,14 @@ import (
 
 var output = flag.String("output", "", "path of output file")
 var schema = flag.String("schema", "", "path of schema file")
-var selectedStruct = flag.String("struct", "", "name of selected struct")
+var selectedTable = flag.String("table", "", "name of table")
 var overwrite = flag.Bool("overwrite", false, "overwrite files")
 
 func main() {
 	flag.Parse()
+
+	var dbData generator.DBData
+	var err error
 
 	if *output != "" && utils.FileExists(*output) && !*overwrite {
 		fmt.Println("Output file", *output, "already exists, if you want to overwrite it use the -overwrite argument")
@@ -26,10 +30,19 @@ func main() {
 	if !utils.FileExists(*schema) {
 		fmt.Println("The schema file", *schema, "doesn't exist")
 		os.Exit(1)
+	} else {
+		dbData, err = generator.ReadFile(*schema)
+		panicError(err)
 	}
 
-	if *selectedStruct == "" {
-		fmt.Println("The struct is required")
+	if *selectedTable == "" {
+		var tables []string
+
+		for _, table := range dbData.Tables {
+			tables = append(tables, table.The_items_name)
+		}
+
+		fmt.Println("The table is required, available tables are:", strings.Join(tables, ", "))
 		os.Exit(1)
 	}
 
@@ -47,10 +60,9 @@ func main() {
 		}
 	}
 
-	dbData, err := generator.ReadFile(*schema)
-	panicError(err)
+	outputCode, err := dbData.ProcessTemplates(*selectedTable, templateFiles...)
 
-	outputCode := dbData.ProcessTemplates(*selectedStruct, templateFiles...)
+	panicError(err)
 
 	if *output == "" {
 		fmt.Println(outputCode)

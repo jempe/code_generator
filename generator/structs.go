@@ -1,37 +1,26 @@
 package generator
 
 type DBData struct {
-	StructsData      []StructData
-	CodeTemplatePath string
-	DBType           string
+	Version       int     `json:"version"`
+	Tables        []Table `json:"tables"`
+	SelectedTable Table   `json:"selected_table"`
+	OpenBraces    string  `json:"open_braces"`
+	CloseBraces   string  `json:"close_braces"`
 }
 
-type StructData struct {
-	Name   string  `json:"name"`
-	Table  string  `json:"table"`
-	Item   string  `json:"item"`
-	Fields []Field `json:"fields"`
+type Table struct {
+	TheItemName    string  `json:"ItemName"`
+	The_item_name  string  `json:"item_name"`
+	TheItemsName   string  `json:"ItemsName"`
+	The_items_name string  `json:"items_name"`
+	TheitemName    string  `json:"itemName"`
+	TheitemsName   string  `json:"itemsName"`
+	Key            Field   `json:"key"`
+	Fields         []Field `json:"fields"`
 }
 
 type Field struct {
-	Name             string `json:"name"`
-	FieldName        string `json:"field_name,omitempty"`
-	Key              bool   `json:"key,omitempty"`
-	Type             string `json:"type"`
-	Maxlength        int    `json:"maxlength,omitempty"`
-	Minlength        int    `json:"minlength,omitempty"`
-	DBExtras         string `json:"db_extras,omitempty"`
-	DBDefault        string `json:"db_default,omitempty"`
-	Reference        string `json:"reference,omitempty"`
-	ReferenceType    string `json:"reference_type,omitempty"`
-	ValidateFunction string `json:"validate_function,omitempty"`
-}
-
-func (dbData *DBData) getStructData(structName string) StructData {
-	for _, structData := range dbData.StructsData {
-		if structName == structData.Name {
-			return structData
-		}
-	}
-	return StructData{}
+	FieldName  string `json:"FieldName"`
+	field_name string `json:"field_name"`
+	goType     string `json:"goType"`
 }

@@ -11,14 +11,10 @@ func ReadFile(filePath string) (dbData DBData, err error) {
 		return
 	}
 
-	var structsData []StructData
-
-	err = json.Unmarshal(content, &structsData)
+	err = json.Unmarshal(content, &dbData)
 	if err != nil {
 		return
 	}
 
-	dbData = DBData{StructsData: structsData}
-
-	return
+	return dbData, nil
 }

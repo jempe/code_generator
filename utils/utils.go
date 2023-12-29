@@ -18,7 +18,6 @@ func FileExists(file string) bool {
 }
 
 // IsDir checks if path is a directory
-//
 func IsDirectory(file string) bool {
 	if stat, err := os.Stat(file); err == nil && stat.IsDir() {
 		return true
@@ -27,7 +26,6 @@ func IsDirectory(file string) bool {
 }
 
 // CurrentDirectory returns the directory
-//
 func CurrentDirectory() string {
 	directory, err := os.Getwd()
 	if err != nil {
@@ -38,7 +36,6 @@ func CurrentDirectory() string {
 }
 
 // CopyFile copies files
-//
 func CopyFile(source string, destination string) (err error) {
 	if FileExists(source) && !FileExists(destination) {
 		sourceFile, err := os.Open(source)
@@ -70,7 +67,6 @@ func CopyFile(source string, destination string) (err error) {
 }
 
 // MoveFile move files
-//
 func MoveFile(source string, destination string) (err error) {
 	if FileExists(source) {
 		err = os.Rename(source, destination)
@@ -85,7 +81,6 @@ func MoveFile(source string, destination string) (err error) {
 }
 
 // MakeDirectory creates new directory
-//
 func MakeDirectory(directory string, permissions os.FileMode) (err error) {
 	if !FileExists(directory) {
 		err = os.MkdirAll(directory, permissions)
@@ -99,8 +94,7 @@ func MakeDirectory(directory string, permissions os.FileMode) (err error) {
 	return err
 }
 
-//SaveToFile saves content to a file
-//
+// SaveToFile saves content to a file
 func SaveToFile(file string, content string, permissions os.FileMode) (err error) {
 	if !FileExists(file) {
 		err = ioutil.WriteFile(file, []byte(content), permissions)
@@ -114,8 +108,7 @@ func SaveToFile(file string, content string, permissions os.FileMode) (err error
 	return err
 }
 
-//Remove Last slash
-//
+// Remove Last slash
 func RemoveLastSlash(path string) string {
 	return strings.TrimSuffix(path, "/")
 }
