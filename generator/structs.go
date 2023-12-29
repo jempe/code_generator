@@ -11,18 +11,18 @@ type DBData struct {
 
 type Table struct {
 	TheItemName    string  `json:"ItemName"`
-	The_item_name  string  `json:"item_name"`
 	TheItemsName   string  `json:"ItemsName"`
-	The_items_name string  `json:"items_name"`
 	TheitemName    string  `json:"itemName"`
 	TheitemsName   string  `json:"itemsName"`
+	The_item_name  string  `json:"item_name"`
+	The_items_name string  `json:"items_name"`
 	HasEmbeddings  bool    `json:"has_embeddings"`
 	Key            Field   `json:"key"`
 	Fields         []Field `json:"fields"`
 }
 
 type Field struct {
-	FieldName  string `json:"FieldName"`
-	field_name string `json:"field_name"`
-	goType     string `json:"goType"`
+	TheFieldName   string `json:"FieldName"`
+	The_field_name string `json:"field_name"`
+	GoType         string `json:"goType"`
 }
