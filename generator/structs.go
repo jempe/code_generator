@@ -22,7 +22,9 @@ type Table struct {
 }
 
 type Field struct {
-	TheFieldName   string `json:"FieldName"`
-	The_field_name string `json:"field_name"`
-	GoType         string `json:"goType"`
+	TheFieldName    string `json:"FieldName"`
+	The_field_name  string `json:"field_name"`
+	EnableFilter    bool   `json:"enable_filter"`
+	FilterValidator string `json:"filter_validator"`
+	GoType          string `json:"goType"`
 }
