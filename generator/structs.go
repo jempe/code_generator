@@ -2,6 +2,7 @@ package generator
 
 type DBData struct {
 	Version       int     `json:"version"`
+	GoModule      string  `json:"go_module"`
 	Tables        []Table `json:"tables"`
 	SelectedTable Table   `json:"selected_table"`
 	OpenBraces    string  `json:"open_braces"`
