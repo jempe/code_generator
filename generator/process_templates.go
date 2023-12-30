@@ -7,6 +7,7 @@ import (
 )
 
 func (dbData *DBData) ProcessTemplates(table string, templateFiles ...string) (output string, err error) {
+
 	goTemplate := template.Must(template.ParseFiles(templateFiles...))
 
 	dbData.OpenBraces = "{{"
@@ -14,11 +15,15 @@ func (dbData *DBData) ProcessTemplates(table string, templateFiles ...string) (o
 
 	if table != "" {
 		var found bool
-		for _, tableData := range dbData.Tables {
+		for tableIndex, tableData := range dbData.Tables {
+			tableData.NaturalIndex = tableIndex + 1
 			if tableData.The_items_name == table {
 				dbData.SelectedTable = tableData
 				found = true
-				break
+			}
+
+			for fieldIndex, fieldData := range tableData.Fields {
+				fieldData.NaturalIndex = fieldIndex + 1
 			}
 		}
 

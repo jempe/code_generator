@@ -1,3 +1,3 @@
 module github.com/jempe/code_generator
 
-go 1.16
+go 1.21.5
