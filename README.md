@@ -1,4 +1,4 @@
-# code_generator
+# Code Generator
 Generate code to avoid repetitive tasks
 
 ## Struct Variables:
