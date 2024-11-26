@@ -46,3 +46,38 @@ Generate code to avoid repetitive tasks
 **ReferenceType**		"" or type of the foreign table ID if type equals reference
 
 **ValidateFunction**	validate_function or Valid + name + Default 
+
+## Usage
+
+To generate code using this tool, you need to provide a schema file, specify the table, and include at least one template file. Here is the basic usage:
+
+```sh
+jempe_code_generator -schema=schema.json -table=users templates/user.tmpl
+```
+
+## Example
+```sh
+jempe_code_generator -schema=schema.json -table=users templates/user.tmpl
+```
+
+## Options
+
+- `-output`: Path of the output file. If not provided, the generated code will be printed to the standard output.
+- `-schema`: Path of the schema file. This file should contain the database schema.
+- `-table`: Name of the table for which you want to generate code.
+- `-overwrite`: If set to true, existing files will be overwritten.
+- `-template_files`: List of template files to be used for code generation.
+
+## Example with Output File
+```sh
+jempe_code_generator -schema=schema.json -table=users -output=generated_code.go templates/user.tmpl
+```
+
+This command will generate the code based on the provided schema and template files and save it to `generated_code.go`.
+
+## Notes
+
+- Ensure the schema file exists and is correctly formatted.
+- Provide at least one template file to generate the code.
+- If the output file already exists and you don't use the -overwrite flag, the tool will not overwrite the existing file.
+
