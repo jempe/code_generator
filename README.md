@@ -1,5 +1,5 @@
 # Code Generator
-Generate code to avoid repetitive tasks
+A CLI tool that automates code generation from database schemas and templates, reducing repetitive coding tasks.
 
 ## Struct Variables:
 
