@@ -1,7 +1,7 @@
 # code_generator
 Generate code to avoid repetitive tasks
 
-##Struct Variables:
+## Struct Variables:
 
 **StructName**		name
 
@@ -23,7 +23,7 @@ Generate code to avoid repetitive tasks
 
 **CloseBraces**		}}
 
-##Field Variables:
+## Field Variables:
 
 **Name**			name
 
